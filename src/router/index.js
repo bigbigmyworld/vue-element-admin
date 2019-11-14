@@ -99,6 +99,15 @@ export const constantRoutes = [{
       title: '基金净值',
       icon: 'documentation'
     }
+  },
+  {
+    path: 'portfolio',
+    component: () => import('@/views/fund/fund-portfolio.vue'),
+    name: '基金持仓',
+    meta: {
+      title: '基金持仓',
+      icon: 'documentation'
+    }
   }]
 },
 {

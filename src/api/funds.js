@@ -16,9 +16,11 @@ export function fundNav(tsCode) {
   })
 }
 
-export function logout() {
+export function apiFundPortfolio(tsCode) {
   return request({
-    url: '/user/logout',
-    method: 'post'
+    url: '/fund/portfolio',
+    method: 'get',
+    params: { tsCode }
   })
 }
+
