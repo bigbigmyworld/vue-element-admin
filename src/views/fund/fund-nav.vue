@@ -1,46 +1,32 @@
 <template>
   <div class="chart-container">
-    <el-input v-model="fundCode" placeholder></el-input>
-    <el-button type="primary" @click="getfundNav">登录</el-button>
+    <el-input v-model="fundCode" placeholder />
+    <el-button type="primary" @click="getfundNav">查询</el-button>
     <el-table :data="fundNavDetail" border stripe>
-      <el-table-column
-        v-for="col in columns"
-        :prop="col.id"
-        :key="col.id"
-        :label="col.label"
-        :width="col.width"
-      ></el-table-column>
+      <el-table-column prop="ts_code" label="基金代码" />
     </el-table>
   </div>
 </template>
 
 <script>
-import { fundNav } from "@/api/funds.js";
+import { fundNav } from '@/api/funds.js'
 
 export default {
-  name: "fundsNav",
+  name: 'FundsNav',
+  components: {},
   data() {
     return {
-      fundCode: "",
-      fundNavDetail: ""
-    };
+      fundCode: '165509.SZ',
+      fundNavDetail: ''
+    }
   },
-  components: {},
   methods: {
     getfundNav() {
       fundNav(this.fundCode).then(res => {
-        this.fundNavDetail = res;
-      });
+        this.fundNavDetail = res.data
+      })
     }
   }
-};
-</script>
-
-<style scoped>
-.chart-container {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 84px);
 }
-</style>
+</script>
 

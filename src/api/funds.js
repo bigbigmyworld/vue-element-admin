@@ -8,11 +8,11 @@ import request from '@/utils/request'
 //   })
 // }
 
-export function fundNav(ts_code) {
+export function fundNav(tsCode) {
   return request({
     url: '/fund/nav',
     method: 'get',
-    params: { ts_code }
+    params: { tsCode }
   })
 }
 
