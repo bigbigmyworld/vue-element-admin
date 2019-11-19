@@ -2,7 +2,7 @@
   <div class="chart-container">
     <el-input v-model="fundCode" placeholder />
     <el-button type="primary" @click="getfundNav">查询</el-button>
-    <!-- <el-table :data="fundNavDetail" border stripe>
+    <el-table :data="fundNavDetail" border stripe>
       <el-table-column prop="ts_code" label="基金代码" />
       <el-table-column prop="ann_date" label="日期" />
       <el-table-column prop="unit_nav" label="单位净值" sortable />
@@ -11,7 +11,7 @@
       <el-table-column prop="net_asset" label="资产净值" />
       <el-table-column prop="total_netasset" label="合计资产净值" />
       <el-table-column prop="adj_nav" label="复权单位净值" />
-    </el-table>-->
+    </el-table>
     <radar-chart :items="fundNavDetail" />//传递在子组件prop选项里约定好的数据
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
   components: { RadarChart },
   data() {
     return {
-      fundCode: '165509.SZ',
+      fundCode: '001548.OF',
       fundNavDetail: [],
       items: [
         { name: '体育', value: 95, max: '100' },
@@ -48,7 +48,7 @@ export default {
       ]
     }
   },
-  created: { getfundNav },
+  // created: { getfundNav },
   methods: {
     getfundNav() {
       fundNav(this.fundCode).then(res => {

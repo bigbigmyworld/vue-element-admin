@@ -1,7 +1,5 @@
-//radar-chart.vue （子组件）
-
 <template>
-  <div id="radar" class="container" />
+  <div :id="elId" class="container" />
 </template>
 
 <script>
@@ -12,15 +10,14 @@ import 'echarts/lib/chart/line'
 // 引入提示框和图例组件
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/legend'
-
+// 引入uuid文件
+import uuidv1 from 'uuid/v1'
 export default {
   name: 'RadarChart',
   props: {
-    // 接受父组件传递来的数据
     items: {
       type: Array,
       default() {
-        // 默认数据，没有数剧的情况下启用
         return [
           { name: '生物', value: 95, max: '100' },
           { name: '数学', value: 55, max: '100' },
@@ -31,52 +28,40 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      elId: ''
+    }
+  },
+  created() {
+    this.elId = uuidv1() // 获取随机id
+  },
   mounted() {
-    const values = [] // 提炼接收到的数据
+    const values = []
     this.items.forEach(el => {
-      values.push(el.unit_nav)
+      values.push(el.value)
     })
-
     const option = {
-      title: {
-        text: '折线图堆叠'
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-      },
-      yAxis: {
-        type: 'value'
+      tooltip: {},
+      radar: {
+        indicator: this.items,
+        center: ['50%', '51%']
       },
       series: [
         {
-          name: '邮件营销',
-          type: 'line',
-          stack: '总量',
-          data: [120, 132, 101, 134, 90, 230, 210]
+          type: 'radar',
+          itemStyle: { normal: { areaStyle: { type: 'default' }}},
+          data: [
+            {
+              value: values,
+              name: '各项得分',
+              itemStyle: { normal: { color: '#f0ad4e' }}
+            }
+          ]
         }
       ]
     }
-    // 初始化
-    const chartObj = echarts.init(document.getElementById('radar'))
+    const chartObj = echarts.init(document.getElementById(this.elId))
     chartObj.setOption(option)
   }
 }
