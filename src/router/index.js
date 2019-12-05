@@ -92,9 +92,18 @@ export const constantRoutes = [{
     icon: 'user'
   },
   children: [{
+    path: 'basic',
+    component: () => import('@/views/fund/fund-basic.vue'),
+    name: 'FundsBasic',
+    meta: {
+      title: '基金列表',
+      icon: 'documentation'
+    }
+  },
+  {
     path: 'nav',
     component: () => import('@/views/fund/fund-nav.vue'),
-    name: '基金净值',
+    name: 'FundsNav',
     meta: {
       title: '基金净值',
       icon: 'documentation'

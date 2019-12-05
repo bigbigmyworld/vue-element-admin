@@ -8,11 +8,11 @@ import request from '@/utils/request'
 //   })
 // }
 
-export function fundNav(tsCode) {
+export function fundNav(tsCode, days_num) {
   return request({
     url: '/fund/nav',
     method: 'get',
-    params: { tsCode }
+    params: { tsCode, days_num }
   })
 }
 
@@ -24,3 +24,10 @@ export function apiFundPortfolio(tsCode) {
   })
 }
 
+export function apiFundBasic() {
+  return request({
+    url: '/fund/basic',
+    method: 'get',
+    params: {}
+  })
+}
