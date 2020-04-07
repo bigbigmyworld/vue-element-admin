@@ -31,3 +31,29 @@ export function apiFundBasic() {
     params: {}
   })
 }
+
+
+export function apiRefillFundNav(tsCode) {
+  return request({
+    url: '/fund/refill_fund_nav',
+    method: 'get',
+    params: {tsCode}
+  })
+}
+
+export function apiQueryFundPredict(ts_code,predict_value,gztime) {
+  return request({
+    url: '/fund/query_fund_predict',
+    method: 'get',
+    params: {ts_code,predict_value,gztime}
+  })
+}
+
+
+export function apiUpdateFundStar(ts_code,star_3,star_5) {
+  return request({
+    url: '/fund/update_fund_star',
+    method: 'get',
+    params: {ts_code,star_3,star_5}
+  })
+}
