@@ -4,7 +4,7 @@
     <el-button type="primary" @click="forgetfundPredict">估值</el-button>
     <el-button type="primary" @click="stopsend">停止估值</el-button>
 
-    <el-table :data="fundNavDetail" border stripe fit>
+    <el-table :data="fundNavDetail" border stripe fit :cell-style="cellStyle">
       <el-table-column prop="ts_code" label="基金代码" />
       <el-table-column prop="name" label="简称" />
       <el-table-column prop="pct_rank" label="近180日价格排名" sortable />
@@ -16,25 +16,37 @@
       <el-table-column prop="max_drawdown" label="最大回撤" sortable />
       <el-table-column prop="calmar_ratio" label="calmar_ratio" sortable />
       <el-table-column prop="tail_ratio" label="tail_ratio" sortable />
-      <el-table-column label="3年评级" width="100">
+      <el-table-column label="3年评级" width="150" sortable>
         <template slot-scope="scope">
           <el-rate
             v-model="scope.row.star_3"
             :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
             :max="5"
             style="margin-top:6px;"
-            @change="updateFundStar(scope.row.ts_code,scope.row.star_3,scope.row.star_5)"
+            @change="
+              updateFundStar(
+                scope.row.ts_code,
+                scope.row.star_3,
+                scope.row.star_5
+              )
+            "
           />
         </template>
       </el-table-column>
-      <el-table-column label="5年评级" width="100">
+      <el-table-column label="5年评级" width="150" sortable>
         <template slot-scope="scope">
           <el-rate
             v-model="scope.row.star_5"
             :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
             :max="5"
             style="margin-top:6px;"
-            @change="updateFundStar(scope.row.ts_code,scope.row.star_3,scope.row.star_5)"
+            @change="
+              updateFundStar(
+                scope.row.ts_code,
+                scope.row.star_3,
+                scope.row.star_5
+              )
+            "
           />
         </template>
       </el-table-column>
@@ -66,7 +78,12 @@
       <!-- <el-table-column prop="purc_startdate" label="日常申购起始日" /> -->
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <router-link :to="{name:'FundsNav',query:{fundCode:scope.row.ts_code.slice(0,6)}}">
+          <router-link
+            :to="{
+              name: 'FundsNav',
+              query: { fundCode: scope.row.ts_code.slice(0, 6) }
+            }"
+          >
             <el-button type="primary">详情</el-button>
           </router-link>
           <router-view />
@@ -147,6 +164,17 @@ export default {
     stopsend() {
       clearInterval(this.inteval);
     },
+    cellStyle({ row, column, rowIndex, columnIndex }) {
+      console.log(row);
+      if (row["sortino_ratio"] <= 0 && column.label == "索提诺比率") {
+        return { background: "#909399" };
+      } else if (row["std"] <= 0.1 && column.label == "标准差") {
+        return { background: "#909399" };
+      } else if (row["std"] <= 0.1 && column.label == "标准差") {
+        return { background: "#909399" };
+      } else {
+      }
+    },
     test(index) {
       console.log(index);
     },
@@ -161,7 +189,7 @@ export default {
                 index,
                 _self.fundNavDetail[index].ts_code.slice(0, 6)
               ),
-            2000 * index
+            3000 * index
           );
         }
         alert("实时价格同步结束");
@@ -173,4 +201,3 @@ export default {
   }
 };
 </script>
-
