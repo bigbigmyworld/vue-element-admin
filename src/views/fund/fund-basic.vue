@@ -130,7 +130,7 @@ export default {
   //       });
   //   },},
   methods: {
-    getfundBasic() {
+    getfundBasic(period) {
       apiFundBasic(period).then(res => {
         this.fundNavDetail = res.data
       })
