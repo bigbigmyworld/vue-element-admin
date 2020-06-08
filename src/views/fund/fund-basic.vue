@@ -99,24 +99,25 @@ import {
   apiFundBasic,
   apiQueryFundPredict,
   apiUpdateFundStar
-} from "@/api/funds.js";
+} from '@/api/funds.js'
 
 export default {
-  name: "FundsBasic",
+  name: 'FundsBasic',
   components: {},
   data() {
     return {
+      period: 252,
       fundNavDetail: [],
-      fundCode: "",
+      fundCode: '',
       // inteval: setInterval(this.getfundPredict, 10000),
       items: [
-        { name: "体育", value: 95, max: "100" },
-        { name: "数学", value: 55, max: "100" },
-        { name: "化学", value: 75, max: "100" },
-        { name: "劳动", value: 85, max: "100" },
-        { name: "烹饪", value: 85, max: "100" }
+        { name: '体育', value: 95, max: '100' },
+        { name: '数学', value: 55, max: '100' },
+        { name: '化学', value: 75, max: '100' },
+        { name: '劳动', value: 85, max: '100' },
+        { name: '烹饪', value: 85, max: '100' }
       ]
-    };
+    }
   },
   // created: { getfundNav },
   // created:{    getfundPredict() {
@@ -130,57 +131,57 @@ export default {
   //   },},
   methods: {
     getfundBasic() {
-      apiFundBasic().then(res => {
-        this.fundNavDetail = res.data;
-      });
+      apiFundBasic(period).then(res => {
+        this.fundNavDetail = res.data
+      })
     },
     getQueryFundPredict(ts_code, predict_value, gztime) {
       apiQueryFundPredict(ts_code, predict_value, gztime).then(res => {
-        console.log(res);
-      });
+        console.log(res)
+      })
     },
     updateFundStar(ts_code, star_3, star_5) {
       apiUpdateFundStar(ts_code, star_3, star_5).then(res => {
-        console.log(res);
-      });
+        console.log(res)
+      })
     },
     getfundPredict(index, ts_code) {
-      console.log(ts_code);
+      console.log(ts_code)
       this.$http
-        .jsonp("http://fundgz.1234567.com.cn/js/" + ts_code + ".js", {
-          jsonpCallback: "jsonpgz"
+        .jsonp('http://fundgz.1234567.com.cn/js/' + ts_code + '.js', {
+          jsonpCallback: 'jsonpgz'
         })
         .then(res => {
-          console.log(res.body); //dwjz今日净值，gsz估算净值，gszzl估值变化百分比
-          this.$set(this.fundNavDetail[index], "predict_value", res.body.gszzl);
-          this.$set(this.fundNavDetail[index], "dwjz", res.body.dwjz);
-          this.$set(this.fundNavDetail[index], "gsz", res.body.gsz);
-          this.getQueryFundPredict(ts_code, res.body.gsz, res.body.gztime);
-        });
+          console.log(res.body) // dwjz今日净值，gsz估算净值，gszzl估值变化百分比
+          this.$set(this.fundNavDetail[index], 'predict_value', res.body.gszzl)
+          this.$set(this.fundNavDetail[index], 'dwjz', res.body.dwjz)
+          this.$set(this.fundNavDetail[index], 'gsz', res.body.gsz)
+          this.getQueryFundPredict(ts_code, res.body.gsz, res.body.gztime)
+        })
     },
     send() {
-      this.inteval;
+      this.inteval
     },
     stopsend() {
-      clearInterval(this.inteval);
+      clearInterval(this.inteval)
     },
     cellStyle({ row, column, rowIndex, columnIndex }) {
-      console.log(row);
-      if (row["sortino_ratio"] <= 0 && column.label == "索提诺比率") {
-        return { background: "#909399" };
-      } else if (row["std"] <= 0.1 && column.label == "标准差") {
-        return { background: "#909399" };
-      } else if (row["std"] <= 0.1 && column.label == "标准差") {
-        return { background: "#909399" };
+      console.log(row)
+      if (row['sortino_ratio'] <= 0 && column.label == '索提诺比率') {
+        return { background: '#909399' }
+      } else if (row['std'] <= 0.1 && column.label == '标准差') {
+        return { background: '#909399' }
+      } else if (row['std'] <= 0.1 && column.label == '标准差') {
+        return { background: '#909399' }
       } else {
       }
     },
     test(index) {
-      console.log(index);
+      console.log(index)
     },
     forgetfundPredict() {
-      var _self = this;
-      console.log("开始循环");
+      var _self = this
+      console.log('开始循环')
       function loopTest() {
         for (let index = 0; index < _self.fundNavDetail.length; index++) {
           setTimeout(
@@ -190,14 +191,14 @@ export default {
                 _self.fundNavDetail[index].ts_code.slice(0, 6)
               ),
             3000 * index
-          );
+          )
         }
-        alert("实时价格同步结束");
+        alert('实时价格同步结束')
       }
       // setInterval(loopTest, 2000);
-      loopTest();
-      alert("实时价格同步开始");
+      loopTest()
+      alert('实时价格同步开始')
     }
   }
-};
+}
 </script>
