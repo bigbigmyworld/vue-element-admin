@@ -3,7 +3,7 @@
     <el-button type="primary" @click="getfundBasic">查询</el-button>
     <el-button type="primary" @click="forgetfundPredict">估值</el-button>
     <el-button type="primary" @click="stopsend">停止估值</el-button>
-    <el-input v-model="period" placeholder="计算数量"></el-input>
+    <el-input v-model="period" placeholder="计算数量" />
 
     <el-table :data="fundNavDetail" border stripe fit :cell-style="cellStyle">
       <el-table-column prop="ts_code" label="基金代码" />
