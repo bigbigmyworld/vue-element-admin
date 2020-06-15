@@ -24,9 +24,9 @@ export function apiFundPortfolio(tsCode) {
   })
 }
 
-export function apiFundBasic(period) {
+export function apiFundBasicQuery(period) {
   return request({
-    url: '/fund/basic',
+    url: '/fund/basic_query',
     method: 'get',
     params: { period }
   })

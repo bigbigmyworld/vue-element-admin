@@ -97,7 +97,7 @@
 
 <script>
 import {
-  apiFundBasic,
+  apiFundBasicQuery,
   apiQueryFundPredict,
   apiUpdateFundStar
 } from '@/api/funds.js'
@@ -131,8 +131,8 @@ export default {
   //       });
   //   },},
   methods: {
-    getfundBasic(period) {
-      apiFundBasic(period).then(res => {
+    getfundBasic() {
+      apiFundBasicQuery(this.period).then(res => {
         this.fundNavDetail = res.data
       })
     },
@@ -167,7 +167,7 @@ export default {
       clearInterval(this.inteval)
     },
     cellStyle({ row, column, rowIndex, columnIndex }) {
-      console.log(row)
+      // console.log(row)
       if (row['sortino_ratio'] <= 0 && column.label == '索提诺比率') {
         return { background: '#909399' }
       } else if (row['std'] <= 0.1 && column.label == '标准差') {
