@@ -54,9 +54,27 @@
       <!-- <el-table-column prop="risk" label="索提诺/夏普比率" sortable /> -->
       <!-- <el-table-column prop="omega_ratio" label="omiga比率" sortable /> -->
       <el-table-column prop="downside_risk" label="下降风险" sortable />
-      <el-table-column prop="mean_5" label="5日均价偏离（警）" sortable />
-      <el-table-column prop="mean_10" label="10日均价偏离（减）" sortable />
-      <el-table-column prop="mean_20" label="20日均价偏离（清）" sortable />
+      <el-table-column prop="mean_5" label="5日均价偏离（警）" sortable >
+        <template slot-scope="scope">
+          <el-tag type="success" slot="reference" v-if="scope.row.mean_5<0">{{ scope.row.mean_5 }}</el-tag>
+          <el-tag type="info" slot="reference" v-else-if="scope.row.mean_5==0">{{ scope.row.mean_5 }}</el-tag>
+          <el-tag type="danger" slot="reference" v-else-if="scope.row.mean_5>0">{{ scope.row.mean_5 }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="mean_10" label="10日均价偏离（减）" sortable >
+        <template slot-scope="scope">
+          <el-tag type="success" slot="reference" v-if="scope.row.mean_10<0">{{ scope.row.mean_10 }}</el-tag>
+          <el-tag type="info" slot="reference" v-else-if="scope.row.mean_10==0">{{ scope.row.mean_10 }}</el-tag>
+          <el-tag type="danger" slot="reference" v-else-if="scope.row.mean_10>0">{{ scope.row.mean_10 }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="mean_20" label="20日均价偏离（清）" sortable >
+           <template slot-scope="scope">
+          <el-tag type="success" slot="reference" v-if="scope.row.mean_20<0">{{ scope.row.mean_20 }}</el-tag>
+          <el-tag type="info" slot="reference" v-else-if="scope.row.mean_20==0">{{ scope.row.mean_20 }}</el-tag>
+          <el-tag type="danger" slot="reference" v-else-if="scope.row.mean_20>0">{{ scope.row.mean_20 }}</el-tag>
+        </template>
+      </el-table-column>
 
       <el-table-column label="今日净值" prop="dwjz" sortable />
       <el-table-column label="估算净值" prop="gsz" sortable />
