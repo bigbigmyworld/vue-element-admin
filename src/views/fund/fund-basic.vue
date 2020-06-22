@@ -17,6 +17,9 @@
       <el-table-column prop="max_drawdown" label="最大回撤" sortable />
       <el-table-column prop="calmar_ratio" label="calmar_ratio" sortable />
       <el-table-column prop="tail_ratio" label="tail_ratio" sortable />
+      <el-table-column prop="adj_nav_date_near_today" label="上次最近日期" sortable />
+      <el-table-column prop="adj_nav_near_today" label="上次最近净值" sortable />
+
       <el-table-column label="3年评级" width="150" sortable>
         <template slot-scope="scope">
           <el-rate
@@ -54,6 +57,7 @@
       <!-- <el-table-column prop="risk" label="索提诺/夏普比率" sortable /> -->
       <!-- <el-table-column prop="omega_ratio" label="omiga比率" sortable /> -->
       <el-table-column prop="downside_risk" label="下降风险" sortable />
+
       <el-table-column prop="mean_5" label="5日均价偏离（警）" sortable >
         <template slot-scope="scope">
           <el-tag type="success" slot="reference" v-if="scope.row.mean_5<0">{{ scope.row.mean_5 }}</el-tag>
