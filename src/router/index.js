@@ -119,7 +119,17 @@ export const constantRoutes = [{
       title: '基金持仓',
       icon: 'documentation'
     }
-  }]
+  },
+  {
+    path: 'backend',
+    component: () => import('@/views/fund/fund-backend.vue'),
+    name: 'FundsBackend',
+    hidden:true,
+    meta: {
+      title: '基金后台',
+      icon: 'documentation'
+    }
+  },]
 },
 {
   path: '/guide',

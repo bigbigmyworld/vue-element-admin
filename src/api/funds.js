@@ -39,7 +39,7 @@ export function apiRefillFundNav(tsCode) {
     params: { tsCode }
   })
 }
-
+// 星级相关接口
 export function apiQueryFundPredict(ts_code, predict_value, gztime) {
   return request({
     url: '/fund/query_fund_predict',
@@ -53,5 +53,22 @@ export function apiUpdateFundStar(ts_code, star_3, star_5) {
     url: '/fund/update_fund_star',
     method: 'get',
     params: { ts_code, star_3, star_5 }
+  })
+}
+
+// 同步数据接口
+export function apiSyncFundBasic() {
+  return request({
+    url: '/fund/SyncFundBasic',
+    method: 'get',
+    // params: { ts_code, star_3, star_5 }
+  })
+}
+
+export function apiSyncFundNav() {
+  return request({
+    url: '/fund/SyncFundNav',
+    method: 'get',
+    // params: { ts_code, star_3, star_5 }
   })
 }

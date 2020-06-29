@@ -6,14 +6,26 @@
     <el-input v-model="period" placeholder="计算数量" />
 
     <el-table :data="fundNavDetail" border stripe fit :cell-style="cellStyle">
-      <el-table-column prop="ts_code" label="基金代码" />
-      <el-table-column prop="name" label="简称" />
+      <el-table-column  label="基金代码" width="100">
+        <template slot-scope="scope">
+          <div>{{scope.row.ts_code}}</div>
+          <div>{{scope.row.name}}</div>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column prop="name" label="简称" /> -->
       <el-table-column prop="pct_rank" label="近180日价格排名" sortable />
-      <el-table-column prop="diff_pct_rank" label="变动排名" sortable />
+      <el-table-column prop="diff_pct_rank" label="变动排名" sortable >
+        <template slot-scope="scope">
+          <el-tag type="danger" slot="reference" v-if="scope.row.diff_pct_rank.indexOf('-')!=0">{{ scope.row.diff_pct_rank }}</el-tag>
+          <el-tag type="success" slot="reference" v-else-if="scope.row.diff_pct_rank.indexOf('-')==0">{{ scope.row.diff_pct_rank }}</el-tag>
+        </template>
+      </el-table-column>
+
 
       <el-table-column prop="std" label="标准差" sortable />
       <el-table-column prop="sortino_ratio" label="索提诺比率" sortable />
-      <el-table-column prop="sharp" label="夏普比率" sortable />
+      <!-- <el-table-column prop="sharp" label="夏普比率" sortable /> -->
+      <el-table-column prop="daily_value_at_risk" label="每日风险价值" sortable />
       <el-table-column prop="max_drawdown" label="最大回撤" sortable />
       <el-table-column prop="calmar_ratio" label="calmar_ratio" sortable />
       <el-table-column prop="tail_ratio" label="tail_ratio" sortable />
