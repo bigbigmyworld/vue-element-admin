@@ -26,7 +26,9 @@
       <el-table-column prop="sortino_ratio" label="索提诺比率" sortable />
       <!-- <el-table-column prop="sharp" label="夏普比率" sortable /> -->
       <el-table-column prop="daily_value_at_risk" label="每日风险价值" sortable />
-      <el-table-column prop="max_drawdown" label="最大回撤" sortable />
+      <!-- <el-table-column prop="max_drawdown" label="最大回撤" sortable /> -->
+      <el-table-column prop="is_increase_count" label="最新涨跌次数" sortable />
+
       <el-table-column prop="calmar_ratio" label="calmar_ratio" sortable />
       <el-table-column prop="tail_ratio" label="tail_ratio" sortable />
       <el-table-column prop="adj_nav_date_near_today" label="上次最近日期" sortable />
