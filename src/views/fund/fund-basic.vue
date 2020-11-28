@@ -6,33 +6,52 @@
     <el-input v-model="period" placeholder="计算数量" />
 
     <el-table :data="fundNavDetail" border stripe fit :cell-style="cellStyle">
-      <el-table-column  label="基金代码" width="100">
+      <el-table-column label="基金代码" width="100">
         <template slot-scope="scope">
-          <div>{{scope.row.ts_code}}</div>
-          <div>{{scope.row.name}}</div>
+          <div>{{ scope.row.ts_code }}</div>
+          <div>{{ scope.row.name }}</div>
         </template>
       </el-table-column>
       <!-- <el-table-column prop="name" label="简称" /> -->
       <el-table-column prop="pct_rank" label="近180日价格排名" sortable />
-      <el-table-column prop="diff_pct_rank" label="变动排名" sortable >
+      <el-table-column prop="diff_pct_rank" label="变动排名" sortable>
         <template slot-scope="scope">
-          <el-tag type="danger" slot="reference" v-if="scope.row.diff_pct_rank.indexOf('-')!=0">{{ scope.row.diff_pct_rank }}</el-tag>
-          <el-tag type="success" slot="reference" v-else-if="scope.row.diff_pct_rank.indexOf('-')==0">{{ scope.row.diff_pct_rank }}</el-tag>
+          <el-tag
+            v-if="scope.row.diff_pct_rank.indexOf('-') != 0"
+            slot="reference"
+            type="danger"
+          >{{ scope.row.diff_pct_rank }}</el-tag>
+          <el-tag
+            v-else-if="scope.row.diff_pct_rank.indexOf('-') === 0"
+            slot="reference"
+            type="success"
+          >{{ scope.row.diff_pct_rank }}</el-tag>
         </template>
       </el-table-column>
-
 
       <el-table-column prop="std" label="标准差" sortable />
       <el-table-column prop="sortino_ratio" label="索提诺比率" sortable />
       <!-- <el-table-column prop="sharp" label="夏普比率" sortable /> -->
-      <el-table-column prop="daily_value_at_risk" label="每日风险价值" sortable />
+      <el-table-column
+        prop="daily_value_at_risk"
+        label="每日风险价值"
+        sortable
+      />
       <!-- <el-table-column prop="max_drawdown" label="最大回撤" sortable /> -->
       <el-table-column prop="is_increase_count" label="最新涨跌次数" sortable />
 
       <el-table-column prop="calmar_ratio" label="calmar_ratio" sortable />
       <el-table-column prop="tail_ratio" label="tail_ratio" sortable />
-      <el-table-column prop="adj_nav_date_near_today" label="上次最近日期" sortable />
-      <el-table-column prop="adj_nav_near_today" label="上次最近净值" sortable />
+      <el-table-column
+        prop="adj_nav_date_near_today"
+        label="上次最近日期"
+        sortable
+      />
+      <el-table-column
+        prop="adj_nav_near_today"
+        label="上次最近净值"
+        sortable
+      />
 
       <el-table-column label="3年评级" width="150" sortable>
         <template slot-scope="scope">
@@ -72,25 +91,59 @@
       <!-- <el-table-column prop="omega_ratio" label="omiga比率" sortable /> -->
       <el-table-column prop="downside_risk" label="下降风险" sortable />
 
-      <el-table-column prop="mean_5" label="5日均价偏离（警）" sortable >
+      <el-table-column prop="mean_5" label="5日均价偏离（警）" sortable>
         <template slot-scope="scope">
-          <el-tag type="success" slot="reference" v-if="scope.row.mean_5<0">{{ scope.row.mean_5 }}</el-tag>
-          <el-tag type="info" slot="reference" v-else-if="scope.row.mean_5==0">{{ scope.row.mean_5 }}</el-tag>
-          <el-tag type="danger" slot="reference" v-else-if="scope.row.mean_5>0">{{ scope.row.mean_5 }}</el-tag>
+          <el-tag v-if="scope.row.mean_5 < 0" slot="reference" type="success">{{
+            (scope.row.mean_5 * 100).toFixed(2) + "%"
+          }}</el-tag>
+          <el-tag
+            v-else-if="scope.row.mean_5 === 0"
+            slot="reference"
+            type="info"
+          >{{ (scope.row.mean_5 * 100).toFixed(2) + "%" }}</el-tag>
+          <el-tag
+            v-else-if="scope.row.mean_5 > 0"
+            slot="reference"
+            type="danger"
+          >{{ (scope.row.mean_5 * 100).toFixed(2) + "%" }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="mean_10" label="10日均价偏离（减）" sortable >
+      <el-table-column prop="mean_10" label="10日均价偏离（减）" sortable>
         <template slot-scope="scope">
-          <el-tag type="success" slot="reference" v-if="scope.row.mean_10<0">{{ scope.row.mean_10 }}</el-tag>
-          <el-tag type="info" slot="reference" v-else-if="scope.row.mean_10==0">{{ scope.row.mean_10 }}</el-tag>
-          <el-tag type="danger" slot="reference" v-else-if="scope.row.mean_10>0">{{ scope.row.mean_10 }}</el-tag>
+          <el-tag
+            v-if="scope.row.mean_10 < 0"
+            slot="reference"
+            type="success"
+          >{{ (scope.row.mean_10*100).toFixed(2)+"%" }}</el-tag>
+          <el-tag
+            v-else-if="scope.row.mean_10 === 0"
+            slot="reference"
+            type="info"
+          >{{ (scope.row.mean_10*100).toFixed(2)+"%" }}</el-tag>
+          <el-tag
+            v-else-if="scope.row.mean_10 > 0"
+            slot="reference"
+            type="danger"
+          >{{ (scope.row.mean_10*100).toFixed(2)+"%" }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="mean_20" label="20日均价偏离（清）" sortable >
-           <template slot-scope="scope">
-          <el-tag type="success" slot="reference" v-if="scope.row.mean_20<0">{{ scope.row.mean_20 }}</el-tag>
-          <el-tag type="info" slot="reference" v-else-if="scope.row.mean_20==0">{{ scope.row.mean_20 }}</el-tag>
-          <el-tag type="danger" slot="reference" v-else-if="scope.row.mean_20>0">{{ scope.row.mean_20 }}</el-tag>
+      <el-table-column prop="mean_20" label="20日均价偏离（清）" sortable>
+        <template slot-scope="scope">
+          <el-tag
+            v-if="scope.row.mean_20 < 0"
+            slot="reference"
+            type="success"
+          >{{ (scope.row.mean_20*100).toFixed(2)+"%" }}</el-tag>
+          <el-tag
+            v-else-if="scope.row.mean_20 === 0"
+            slot="reference"
+            type="info"
+          >{{ (scope.row.mean_20*100).toFixed(2)+"%" }}</el-tag>
+          <el-tag
+            v-else-if="scope.row.mean_20 > 0"
+            slot="reference"
+            type="danger"
+          >{{ (scope.row.mean_20*100).toFixed(2)+"%" }}</el-tag>
         </template>
       </el-table-column>
 
@@ -204,11 +257,11 @@ export default {
     },
     cellStyle({ row, column, rowIndex, columnIndex }) {
       // console.log(row)
-      if (row['sortino_ratio'] <= 0 && column.label == '索提诺比率') {
+      if (row['sortino_ratio'] <= 0 && column.label === '索提诺比率') {
         return { background: '#909399' }
-      } else if (row['std'] <= 0.1 && column.label == '标准差') {
+      } else if (row['std'] <= 0.1 && column.label === '标准差') {
         return { background: '#909399' }
-      } else if (row['std'] <= 0.1 && column.label == '标准差') {
+      } else if (row['std'] <= 0.1 && column.label === '标准差') {
         return { background: '#909399' }
       } else {
       }
