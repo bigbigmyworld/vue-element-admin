@@ -337,11 +337,11 @@ export default {
     },
     cellStyle({ row, column, rowIndex, columnIndex }) {
       // console.log(row)
-      if (row['sortino_ratio'] <= 0 && column.label == '索提诺比率') {
+      if (row['sortino_ratio'] <= 0 && column.label === '索提诺比率') {
         return { background: '#909399' }
-      } else if (row['std'] <= 0.1 && column.label == '标准差') {
+      } else if (row['std'] <= 0.1 && column.label === '标准差') {
         return { background: '#909399' }
-      } else if (row['std'] <= 0.1 && column.label == '标准差') {
+      } else if (row['std'] <= 0.1 && column.label === '标准差') {
         return { background: '#909399' }
       } else {
       }
